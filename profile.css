@@ -1,0 +1,76 @@
+*{
+    box-sizing: border-box;
+    padding: 0%;
+    margin: 0%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: border-box;
+    }
+    .hero{
+        height: 648px;
+        width:100%;
+        background-image: url("hero4.png");
+        background-size: cover;
+        
+    }
+    .nav{
+        height: 45px;
+        display: flex;
+        justify-content: end;
+        padding-top: 15px;
+        margin-right: 20px;
+    }
+    button{
+        width: 120px;
+        margin-right: 20px;
+        border:2px solid #0A5247;
+        border-radius: 15px;
+        background-color: #FFF9F9;
+        font-size: 15px;
+    }
+    button:active{
+        background-color:#0A5247 ;
+        color: #FFF9F9;
+    }
+    button:hover{
+        background-color: #0A5247;
+        color: #FFF9F9;
+    }
+    .writing{
+        height: 250px;
+        width: 40%;
+        display: flex;
+        justify-content:left;
+        color: #0A5247;
+        padding-left: 140px;
+        padding-top: 5%;
+    }
+    p{
+        font-size: 18px;
+        font-weight: 12%;
+    }
+    .foot{
+        height: 32px;
+        background-color: #A3C468;
+        margin-top: 24.2%;
+    }
+    input{
+        margin-bottom: 4px;
+    }
+    select{
+        margin-bottom: 4px;
+    }
+    #sub-button{
+        height: 35px;
+        width:80px;
+        border-radius: 15px;
+        margin-top: 15px;
+        background-color: #e9e2e2;
+        color: #0A5247;
+        border: 2px solid #0A5247;
+        font-size: medium;
+        font-weight: 600;
+    }
+    #sub-button:hover{
+        background-color: #0A5247;
+        color: #e9e2e2;
+    }

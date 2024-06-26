@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing page</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse('<%= JSON.stringify(user) %>');
+            if (user) {
+                document.getElementById('signup-btn').style.display = 'none';
+                document.getElementById('logout-btn').style.display = 'inline-block';
+            } else {
+                document.getElementById('signup-btn').style.display = 'inline-block';
+                document.getElementById('logout-btn').style.display = 'none';
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="hero">
+        <div class="nav">
+            <a href="index.html"><button>Home</button></a>
+            <a href="aboutus.html"><button>About us</button></a>
+            <a href="connect.html"><button>Connect</button></a>
+            <a href="profile.html"><button>Profile</button></a>
+            <a href="signup.html"><button id="signup-btn">Sign up</button></a>
+            <a href="/logout"><button id="logout-btn" style="display: none;">Logout</button></a>
+        </div>
+        <div class="writing">
+            <div class="content">
+                <h1>WELCOME TO</h1>
+                <br>
+                <h3>STEADY STRIDE - ANTI TREMOR BAND FOR STABILITY AND CONTROL</h3>
+                <br>
+                <p>Discover the future of tremor management with our innovative Anti-Tremor Band. This cutting-edge wearable device targets the radial and median nerves to significantly reduce tremor intensity. Equipped with advanced sensors and machine learning, it continuously monitors your condition and keeps your loved ones and healthcare providers informed. Experience improved quality of life and personalized tremor relief today.</p>
+            </div>
+        </div>
+        <div class="foot"></div>
+    </div>
+</body>
+</html>

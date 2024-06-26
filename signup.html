@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup page</title>
+    <link rel="stylesheet" href="signup.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse('<%= JSON.stringify(user) %>');
+            if (user) {
+                document.getElementById('signup-btn').style.display = 'none';
+                document.getElementById('logout-btn').style.display = 'inline-block';
+            } else {
+                document.getElementById('signup-btn').style.display = 'inline-block';
+                document.getElementById('logout-btn').style.display = 'none';
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="hero">
+        <div class="nav">
+            <a href="index.html"><button class="navbar">Home</button></a>
+            <a href="aboutus.html"><button class="navbar">About us</button></a>
+            <a href="connect.html"><button class="navbar">Connect</button></a>
+            <a href="profile.html"><button class="navbar">Profile</button></a>
+            <a href="signup.html"><button id="signup-btn" class="navbar">Sign up</button></a>
+            <a href="/logout"><button id="logout-btn" class="navbar" style="display: none;">Logout</button></a>
+        </div>
+        <div class="box">
+            <div class="fillup">
+                <h1>Sign up</h1>
+                <form action="/signup" method="POST">
+                    <h4>Username</h4>
+                    <input class="entry" type="text" name="username" placeholder="Enter username" required>
+                    <h4>Password</h4>
+                    <input class="entry" type="password" name="password" placeholder="Enter password" required>
+                    <h4>Email</h4>
+                    <input class="entry" type="email" name="email" placeholder="Enter email id" required>
+                    <h4>Phone number</h4>
+                    <input class="entry" type="number" name="phone" placeholder="Enter phone number" required>
+                    <br>
+                    <button class="submit" type="submit">Sign up</button>
+                </form>
+            </div>
+        </div>
+        <div class="foot"></div>
+    </div>
+</body>
+</html>

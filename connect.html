@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect page</title>
+    <link rel="stylesheet" href="connect.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/session')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.loggedIn) {
+                        document.getElementById('signup-btn').style.display = 'none';
+                        document.getElementById('logout-btn').style.display = 'inline-block';
+                    } else {
+                        document.getElementById('signup-btn').style.display = 'inline-block';
+                        document.getElementById('logout-btn').style.display = 'none';
+                    }
+                });
+
+            let port;
+            let reader;
+            let collectedData = [];
+
+            document.getElementById('connect-btn').addEventListener('click', async () => {
+                try {
+                    port = await navigator.serial.requestPort();
+                    await port.open({ baudRate: 9600 });
+
+                    const textDecoder = new TextDecoderStream();
+                    const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+                    reader = textDecoder.readable.getReader();
+
+                    document.getElementById('status').innerText = 'Connected to device';
+
+                    readLoop();
+                } catch (error) {
+                    console.error('There was an error opening the serial port:', error);
+                }
+            });
+
+            async function readLoop() {
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) {
+                        console.log('[readLoop] DONE', done);
+                        reader.releaseLock();
+                        break;
+                    }
+                    if (value) {
+                        console.log('[readLoop] Value:', value);
+                        collectedData.push(value.trim());
+                    }
+                }
+            }
+
+            document.getElementById('generate-pdf').addEventListener('click', async () => {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                // Constructing the data string for PDF
+                let dataString = collectedData.join('\n');
+                
+                // Adding text to PDF
+                doc.text(dataString, 10, 10);
+                
+                // Saving the PDF
+                doc.save('report.pdf');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="hero">
+        <div class="nav">
+            <a href="index.html">
+                <button class="navbar">Home</button>
+            </a>
+            <a href="aboutus.html">
+                <button class="navbar">About us</button>
+            </a>
+            <a href="connect.html">
+                <button class="navbar">Connect</button>
+            </a>
+            <a href="profile.html">
+                <button class="navbar">Profile</button>
+            </a>
+            <a href="signup.html">
+                <button class="navbar" id="signup-btn">Sign up</button>
+            </a>
+            <a href="/logout">
+                <button class="navbar" id="logout-btn" style="display: none;">Logout</button>
+            </a>
+        </div>
+        <div class="writing">
+            <div class="content">
+                <h1>Connect</h1>
+                <br>
+                <p>Connect to your device</p>
+                <button class="con" id="connect-btn">Connect via Bluetooth</button>
+                <p id="status">Status: Not connected</p>
+                <button class="con" id="generate-pdf">Generate PDF</button>
+            </div>
+        </div>
+        <div class="foot"></div>
+    </div>
+</body>
+</html>
